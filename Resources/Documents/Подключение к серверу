@@ -1,0 +1,121 @@
+Подключение к серверу
+ssh zulfiqor@94.231.205.62
+rct>CX)fJY@^72Be2j*g
+
+Отправка publish на сервер Linux
+dotnet publish -c Release -o publish --runtime linux-x64
+
+Сделать зип
+zip -r publish.zip publish 
+
+После сделать zip а потом отправка publish.zip
+scp publish.zip zulfiqor@94.231.205.62:/home/zulfiqor
+
+В сервере делаем unzip
+unzip publish.zip
+
+Переместим в папку 
+mv publish manager-bot
+mv manager-bot /var/www/
+
+Создание системного файла (unit) для запуска
+sudo nano /etc/systemd/system/face.service
+
+--------------------------
+В файле задачи должен быть примерно так:
+zulfiqor@vps:~$ cat /etc/systemd/system/face.service    
+
+[Unit]
+Description=Face service
+
+[Service]
+WorkingDirectory=/var/www/face-service
+ExecStart=/usr/bin/dotnet /var/www/face-service/Farmoish.Worker.Web.dll
+Restart=always
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=dotnet-example
+User=root
+
+Environment=ASPNETCORE_URLS=http://0.0.0.0:5297
+
+[Install]
+WantedBy=multi-user.target
+
+--------------------------
+
+Запуск программы
+systemctl daemon-reload
+systemctl enable manager-bot
+systemctl start manager-bot
+
+Просмотр последних тысяча сообщений
+sudo journalctl -u face.service -n 1000
+systemctl status manager-bot
+journalctl -u manager-bot -f
+
+Полная очистка (очень радикально)
+sudo rm -rf /var/log/journal/*
+sudo systemctl restart systemd-journald
+
+Просмотр файла
+cat /etc/systemd/system/face.service
+
+Стартовать задачу/программу
+sudo systemctl start face.service
+
+Изменил конфиги базы
+sudo nano /etc/postgresql/*/main/pg_hba.conf
+host    farmoish_business    farmoish    0.0.0.0/0    md5
+
+Перезагружаем постгрес
+sudo systemctl reload postgresql
+sudo systemctl restart postgresql
+
+
+⫷🆉🆄🅻🅵🅸🅺🅾️🆁⫸, [06/10/25 16:21]
+host: 94.231.205.62
+port: 5432
+user: farmoish
+password: farmoish_2024
+db: farmoish_db_2024
+
+⫷🆉🆄🅻🅵🅸🅺🅾️🆁⫸, [06/10/25 16:41]
+host: 94.231.205.62
+user: zulfiqor
+password: rct>CX)fJY@^72Be2j*g
+
+
+rm farmoish_bot_old -r
+mv farmoish_bot farmoish_bot_old
+unzip publish.zip
+mv publish farmoish_bot/
+cp farmoish_bot_old/configs farmoish_bot/ -r
+cp farmoish_bot_old/assets farmoish_bot/ -r
+cp farmoish_bot_old/translates farmoish_bot/ -r
+cp farmoish_bot_old/appsettings.json farmoish_bot
+cd farmoish_bot/translates
+nano main_translate.json
+
+
+8037260989:AAFt7Zf8rvKjMQ8fbVIrscax7QKfKluOVsI
+
+
+{
+  "IsDevelopment": true,
+  "TelegramBot": {
+    "TokenProd": "8037260989:AAEoVluDIBkstpvM3ekd4K-1bdYuu3KSxHA",
+    "TokenDev": "7159312352:AAHy4R2AN5bfF5jOQptYKgDxGG57k8HAEl0",
+    "AdminChatId": "1123649072"
+  },
+  "Database": {
+    "ConnectionString": "Host=94.231.205.62;Username=farmoish;Password=farmoish>
+    "RedisConnectionString": "94.231.205.62:6379,password=dilboz"
+  },
+  "OsonSMS": {
+    "Login": "farmoishcargo",
+    "PassHash": "f78113bf5272e96d30ecf253674716aa",
+    "Sender": "Farmoish"
+  },
+  "Channels": "dilboz_doc"
+}
