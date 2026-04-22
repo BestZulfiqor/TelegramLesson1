@@ -29,10 +29,10 @@ return new PageResult(text, replyMarkup)
 ";
 
         var replyMarkup = GetInlineButtons();
-
+        userState.AddPage(this);
         return new PageResultBase(text, replyMarkup)
         {
-            UpdatedUserState = new UserState(this, userState.UserData)
+            UpdatedUserState = userState
         };
     }
 

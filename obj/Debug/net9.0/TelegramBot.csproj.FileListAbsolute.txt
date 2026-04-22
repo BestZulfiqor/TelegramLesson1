@@ -39,3 +39,4 @@
 /home/zulfiqor/vscode/TelegramBot/bin/Debug/net9.0/Microsoft.IdentityModel.Logging.dll
 /home/zulfiqor/vscode/TelegramBot/bin/Debug/net9.0/Microsoft.IdentityModel.Tokens.dll
 /home/zulfiqor/vscode/TelegramBot/bin/Debug/net9.0/System.Diagnostics.DiagnosticSource.dll
+/home/zulfiqor/vscode/TelegramBot/obj/Debug/net9.0/TelegramBot.sourcelink.json
