@@ -9,26 +9,7 @@ public class StartPage : IPage
 {
     public PageResultBase View(Update update, UserState userState)
     {
-        var text = @"*Hello, I'm glad to see you*
-_Welcome to online school IRON PROGRAMMER\!_
-
-__Do you have any question? Looking for IT path or want to join to Brainstorm?__
-
-~Is this course interesting for you or you want to higher one?~
-
-||Choose your point in menu or just write your question and I necessarily answer to your question and help you||
-
-[Link](https://github.com/TelegramBots/Telegram.Bot)
-
-`Mono text`
-
-```csharp
-return new PageResult(text, replyMarkup)
-{   
-    UpdateUserState = new UserState(this, userState.UserData)
-};
-```
-";
+        var text = Resources.StartPageText;
 
         var replyMarkup = GetInlineButtons();
         userState.AddPage(this);
