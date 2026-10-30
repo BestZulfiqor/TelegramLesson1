@@ -1,8 +1,9 @@
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using TelegramBot.Services;
+using TelegramBot.User.Pages.PageResults;
 
-namespace TelegramBot.User.Pages
+namespace TelegramBot.User.Pages.Mozgokachalka
 {
     public class MozgokachalkaPage : IPage
     {

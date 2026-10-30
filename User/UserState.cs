@@ -2,7 +2,7 @@ using TelegramBot.User.Pages;
 
 namespace TelegramBot.User;
 
-public record class UserState(Stack<IPage> Pages, UserData UserData)
+public record UserState(Stack<IPage> Pages, UserData UserData)
 {
     public IPage CurrentPage => Pages.Peek();
 

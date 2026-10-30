@@ -5,7 +5,7 @@ namespace TelegramBot.Storage;
 
 public class UserStateStorage
 {
-    private readonly ConcurrentDictionary<long, UserState> cache = new ConcurrentDictionary<long, UserState>();
+    private readonly ConcurrentDictionary<long, UserState> cache = new();
 
     public void AddOrUpdate(long telegramUserId, UserState state)
     {

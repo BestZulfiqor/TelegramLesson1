@@ -6,6 +6,9 @@ using Telegram.Bot.Types.ReplyMarkups;
 using TelegramBot.Storage;
 using TelegramBot.User;
 using TelegramBot.User.Pages;
+using TelegramBot.User.Pages.PageResults;
+
+namespace TelegramBot;
 
 class Program
 {
@@ -50,7 +53,7 @@ class Program
         var isExistUserState = storage.TryGet(telegramUserId, out var userState);
         if (!isExistUserState)
         {
-            userState = new UserState(new Stack<IPage>( [new NotStartedPage()]), new UserData());
+            userState = new UserState(new Stack<IPage>([new NotStartedPage()]), new UserData());
         }
 
         Console.WriteLine($"UpdateId={update.Id}, CURRENT_userState={userState}");
@@ -60,7 +63,7 @@ class Program
         Console.WriteLine($"UpdateId={update.Id}, send_text: {result.Text}, UpdatedUserState={result.UpdatedUserState}");
         var lastMessage = await SendResult(client, update, telegramUserId, isExistUserState, result);
 
-        result.UpdatedUserState.UserData.LastMessage = new TelegramBot.User.Message(lastMessage.Id, result.IsMedia);
+        result.UpdatedUserState.UserData.LastMessage = new User.Message(lastMessage.Id, result.IsMedia);
         storage.AddOrUpdate(telegramUserId, result.UpdatedUserState);
     }
 
@@ -79,18 +82,20 @@ class Program
 
     private static async Task<Telegram.Bot.Types.Message> SendPhoto(ITelegramBotClient client, Update update, long telegramUserId, PhotoPageResult result)
     {
-        if (update.CallbackQuery != null && (result.UpdatedUserState.UserData.LastMessage?.IsMedia ?? false)){
+        if (update.CallbackQuery != null && (result.UpdatedUserState.UserData.LastMessage?.IsMedia ?? false))
+        {
             return await client.EditMessageMedia(
-                chatId: telegramUserId, 
+                chatId: telegramUserId,
                 messageId: result.UpdatedUserState.UserData.LastMessage.Id,
-                media: new InputMediaPhoto(result.Photo){
+                media: new InputMediaPhoto(result.Photo)
+                {
                     Caption = result.Text,
                     ParseMode = ParseMode.MarkdownV2
                 },
                 replyMarkup: (InlineKeyboardMarkup)result.ReplyMarkup
             );
         }
-        
+
         if (result.UpdatedUserState.UserData.LastMessage != null)
         {
             await client.DeleteMessage(
@@ -99,27 +104,29 @@ class Program
         }
 
         return await client.SendPhoto(
-                chatId: telegramUserId,
-                photo: result.Photo,
-                caption: result.Text,
-                replyMarkup: result.ReplyMarkup
+            chatId: telegramUserId,
+            photo: result.Photo,
+            caption: result.Text,
+            replyMarkup: result.ReplyMarkup
         );
     }
 
     private static async Task<Telegram.Bot.Types.Message> SendVideo(ITelegramBotClient client, Update update, long telegramUserId, VideoPageResult result)
     {
-        if (update.CallbackQuery != null && (result.UpdatedUserState.UserData.LastMessage?.IsMedia ?? false)){
+        if (update.CallbackQuery != null && (result.UpdatedUserState.UserData.LastMessage?.IsMedia ?? false))
+        {
             return await client.EditMessageMedia(
-                chatId: telegramUserId, 
+                chatId: telegramUserId,
                 messageId: result.UpdatedUserState.UserData.LastMessage.Id,
-                media: new InputMediaVideo(result.Video){
+                media: new InputMediaVideo(result.Video)
+                {
                     Caption = result.Text,
                     ParseMode = ParseMode.MarkdownV2
                 },
                 replyMarkup: (InlineKeyboardMarkup)result.ReplyMarkup
             );
         }
-        
+
         if (result.UpdatedUserState.UserData.LastMessage != null)
         {
             await client.DeleteMessage(
@@ -128,11 +135,11 @@ class Program
         }
 
         return await client.SendVideo(
-                chatId: telegramUserId,
-                video: result.Video,
-                parseMode: ParseMode.MarkdownV2,
-                caption: result.Text,
-                replyMarkup: result.ReplyMarkup
+            chatId: telegramUserId,
+            video: result.Video,
+            parseMode: ParseMode.MarkdownV2,
+            caption: result.Text,
+            replyMarkup: result.ReplyMarkup
         );
     }
 
@@ -166,4 +173,3 @@ class Program
         return Task.CompletedTask;
     }
 }
-

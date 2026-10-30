@@ -1,3 +1,3 @@
 namespace TelegramBot.User;
 
-public record class Message(int Id, bool IsMedia);
+public record Message(int Id, bool IsMedia);

@@ -1,12 +1,13 @@
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace TelegramBot.User.Pages
+namespace TelegramBot.User.Pages.PageResults
 {
     public class PageResultBase(string text, ReplyMarkup replyMarkup)
     {
         public string Text { get; } = text;
         public ReplyMarkup ReplyMarkup { get; } = replyMarkup;
         public UserState UpdatedUserState { get; set; }
+        
         public bool IsMedia =>
             this is PhotoPageResult ||
             this is VideoPageResult ||
