@@ -10,7 +10,7 @@ public class NotStartedPage : IPage
         return null;
     }
  
-     public PageResultBase Update(Update update, UserState userState)
+     public PageResultBase Handle(Update update, UserState userState)
     {
         return new StartPage().View(update, userState);
     }

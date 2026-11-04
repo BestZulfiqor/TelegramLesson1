@@ -58,7 +58,7 @@ class Program
 
         Console.WriteLine($"UpdateId={update.Id}, CURRENT_userState={userState}");
 
-        var result = userState!.CurrentPage.Update(update, userState);
+        var result = userState!.CurrentPage.Handle(update, userState);
 
         Console.WriteLine($"UpdateId={update.Id}, send_text: {result.Text}, UpdatedUserState={result.UpdatedUserState}");
         var lastMessage = await SendResult(client, update, telegramUserId, isExistUserState, result);

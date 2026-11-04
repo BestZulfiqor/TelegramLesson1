@@ -17,7 +17,7 @@ namespace TelegramBot.User.Pages.Mozgokachalka
             };
         }
 
-        public PageResultBase Update(Update update, UserState userState)
+        public PageResultBase Handle(Update update, UserState userState)
         {
             if (update.CallbackQuery.Data == "Back")
             {

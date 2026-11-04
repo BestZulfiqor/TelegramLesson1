@@ -19,31 +19,36 @@ public class StartPage : IPage
         };
     }
 
-    public PageResultBase Update(Update update, UserState userState)
+    public PageResultBase Handle(Update update, UserState userState)
     {
-        if (update.CallbackQuery.Data == "Mozgokachalka")
+        if (update.CallbackQuery is null)
+        {
+            return View(update, userState);
+        }
+        
+        if (update.CallbackQuery.Data == "Мозгокачалка")
         {
             return new MozgokachalkaPage().View(update, userState);
         }
 
-        if (update.CallbackQuery.Data == "Voiti v It")
+        if (update.CallbackQuery.Data == "Войти в айти")
         {
             return new EnterItPage().View(update, userState);
         }
 
-        return new PageResultBase("Press buttons", GetInlineButtons());
+        return View(update, userState);
     }
 
     private InlineKeyboardMarkup GetInlineButtons()
     {
         return new InlineKeyboardMarkup
-        (
+        (   
             [
                 [
-                    InlineKeyboardButton.WithCallbackData("Mozgokachalka")
+                    InlineKeyboardButton.WithCallbackData("Мозгокачалка")
                 ],
                 [
-                    InlineKeyboardButton.WithCallbackData("Voiti v It")
+                    InlineKeyboardButton.WithCallbackData("Войти в айти")
                 ]
             ]);
     }

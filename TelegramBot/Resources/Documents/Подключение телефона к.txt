@@ -1,0 +1,34 @@
+Подключение телефона к ноутбуку 
+1. Включаем отладку по USB (разработчик)
+2. Устанавливаем в Ubuntu scrcpy
+sudo apt update
+sudo apt install scrcpy adb
+scrcpy --version
+3. Проверим видит ли ноутбук телефон
+adb devices
+Ожидаемый результат
+List of devices attached
+XXXXXXXX	device
+
+4. Если не видить то Добавь себя в группу plugdev(перезагрузка)
+sudo usermod -aG plugdev zulfiqor
+
+5. Создай udev-правило для Android
+sudo nano /etc/udev/rules.d/51-android.rules
+
+SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666", GROUP="plugdev"
+SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="plugdev"
+SUBSYSTEM=="usb", ATTR{idVendor}=="22b8", MODE="0666", GROUP="plugdev"
+SUBSYSTEM=="usb", ATTR{idVendor}=="12d1", MODE="0666", GROUP="plugdev"
+SUBSYSTEM=="usb", ATTR{idVendor}=="2a70", MODE="0666", GROUP="plugdev"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0e8d", MODE="0666", GROUP="plugdev"
+
+6. Применяем правила
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+
+groups
+
+7. Запуск программы 
+scrcpy
+

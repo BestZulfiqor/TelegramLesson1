@@ -1,3 +1,4 @@
+using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace TelegramBot.User.Pages.PageResults
@@ -7,7 +8,8 @@ namespace TelegramBot.User.Pages.PageResults
         public string Text { get; } = text;
         public ReplyMarkup ReplyMarkup { get; } = replyMarkup;
         public UserState UpdatedUserState { get; set; }
-        
+        public ParseMode ParseMode { get; set; } = ParseMode.MarkdownV2;
+
         public bool IsMedia =>
             this is PhotoPageResult ||
             this is VideoPageResult ||

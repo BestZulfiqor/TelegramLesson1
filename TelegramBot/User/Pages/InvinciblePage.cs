@@ -18,7 +18,7 @@ public class InvinciblePage : IPage
         };
     }
     
-    public PageResultBase Update(Update update, UserState userState)
+    public PageResultBase Handle(Update update, UserState userState)
     {
         if (update.CallbackQuery.Data == "Back")
         {

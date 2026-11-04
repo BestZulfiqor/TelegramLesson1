@@ -1,29 +1,31 @@
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using TelegramBot.Services;
 using TelegramBot.User.Pages.PageResults;
 
 namespace TelegramBot.User.Pages.Mozgokachalka
 {
-    public class MozgokachalkaRegisterPage : IPage
+    public class MozgokachalkaPage : IPage
     {
         public PageResultBase View(Update update, UserState userState)
         {
-            var text = @"Please send me your stepik id\. You can find it in your profile in Stepik site";
+            var text = "Here you in Mozgokachalka";
             var replyMarkup = GetReplyKeyboard();
         
+            var resource = ResourcesService.GetResourse("Resources/Images/IMG_1543.PNG");
+
             userState.AddPage(this);
-            return new PageResultBase(text, replyMarkup)
+            return new PhotoPageResult(photo: resource, text, replyMarkup)
             {
                 UpdatedUserState = userState
             };
         }
 
-        public PageResultBase Update(Update update, UserState userState)
+        public PageResultBase Handle(Update update, UserState userState)
         {
-            if (update.Message != null)
+            if (update.CallbackQuery.Data == "Enter to group")
             {
-                userState.UserData.StepikId = update.Message.Text;
-                return new MozgokachalkaRegisteredPage().View(update, userState);
+                return new MozgokachalkaRegisterPage().View(update, userState);
             }
             if (update.CallbackQuery.Data == "Back")
             {
@@ -37,6 +39,13 @@ namespace TelegramBot.User.Pages.Mozgokachalka
         {
             return new InlineKeyboardMarkup(
             [
+                [
+                    InlineKeyboardButton.WithCallbackData("Description"),
+                    InlineKeyboardButton.WithCallbackData("Watch live")
+                ],
+                [
+                    InlineKeyboardButton.WithCallbackData("Enter to group")
+                ],
                 [
                     InlineKeyboardButton.WithCallbackData("Back")
                 ]
