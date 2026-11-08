@@ -25,9 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\Images\IMG_1543.PNG">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Folder Include="MozgokachalkaTests\" />
   </ItemGroup>
 
 </Project>
