@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Options;
 using Telegram.Bot;
-using TelegramBot.Configuration;
+using TelegramBot_Common.Configuration;
 
 namespace TelegramBot_Webhook;
 

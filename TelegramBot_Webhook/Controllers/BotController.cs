@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
-using TelegramBot.Configuration;
+using TelegramBot_Common.Configuration;
 
 namespace TelegramBot_Webhook.Controllers;
 

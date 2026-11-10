@@ -1,5 +1,5 @@
+using TelegramBot_Common;
 using TelegramBot_Webhook;
-using TelegramBot;
 
 var builder = WebApplication.CreateBuilder(args);
 ContainerConfigurator.Configure(builder.Configuration, builder.Services);

@@ -1,10 +1,10 @@
 ﻿using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
-using TelegramBot.User;
-using TelegramBot.User.Pages;
-using TelegramBot.User.Pages.Mozgokachalka;
-using TelegramBot.User.Pages.PageResults;
+using TelegramBot_Common.User;
+using TelegramBot_Common.User.Pages;
+using TelegramBot_Common.User.Pages.Mozgokachalka;
+using TelegramBot_Common.User.Pages.PageResults;
 using Message = Telegram.Bot.Types.Message;
 
 namespace TelegramBot.Tests;
